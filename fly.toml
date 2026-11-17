@@ -1,0 +1,22 @@
+# Fly.io — needs a card on file, but 3 tiny VMs are effectively free.
+app = "poll-relay-CHANGEME"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+  SIG_MODE = "ed25519"
+  DATA_FILE = "/data/relay-state.json"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false      # important: the PC must be able to keep polling
+  auto_start_machines = true
+  min_machines_running = 1
+
+[mounts]
+  source = "relay_data"
+  destination = "/data"

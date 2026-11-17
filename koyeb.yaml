@@ -1,0 +1,18 @@
+# Koyeb free tier (no card). koyeb.com -> Create Service -> Docker/GitHub.
+name: poll-relay
+services:
+  - name: relay
+    type: web
+    instance_types:
+      - type: free
+    ports:
+      - port: 8080
+        protocol: http
+    env:
+      - key: RELAY_TOKEN
+        value: CHANGE_ME
+      - key: PAIR_CODE
+        value: CHANGE_ME
+      - key: SIG_MODE
+        value: ed25519
+    # no persistent disk on free -> the poller auto re-enrolls after redeploys

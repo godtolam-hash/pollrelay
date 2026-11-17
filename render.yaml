@@ -1,0 +1,20 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy: push this folder to a Git repo, then "New + > Blueprint".
+services:
+  - type: web
+    name: poll-relay
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: RELAY_TOKEN
+        generateValue: true          # Render generates it; copy from the dashboard
+      - key: PAIR_CODE
+        generateValue: true
+      - key: SIG_MODE
+        value: ed25519
+      - key: MAX_AGENTS
+        value: "5"
+      - key: DATA_FILE
+        value: /tmp/relay-state.json   # free tier has no disk; see README
